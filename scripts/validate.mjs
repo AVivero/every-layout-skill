@@ -46,7 +46,7 @@ if (css && !css.includes('--ratio')) fail('every-layout.css is missing the --rat
 const skill = read('SKILL.md');
 if (!skill) fail('SKILL.md is missing');
 else {
-  if (!/^---\n[\s\S]*?\nname:\s*\S+/m.test(skill)) fail('SKILL.md frontmatter is missing a name');
+  if (!/^---\r?\n[\s\S]*?^name:\s*\S+/m.test(skill)) fail('SKILL.md frontmatter is missing a name');
   if (!/\ndescription:\s*\S+/.test(skill)) fail('SKILL.md frontmatter is missing a description');
 }
 

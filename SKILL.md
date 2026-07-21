@@ -1,8 +1,6 @@
 ---
-
 name: every-layout
 description: Use when building or adjusting any CSS layout — arranging, spacing, aligning, or making elements responsive (sidebars, card grids, toolbars, centered content, media, sticky footers, overlays). Applies Every Layout's composable primitives and axioms so layouts are intrinsically responsive and free of breakpoint hacks and per-element margins.
-
 ---
 
 # Every Layout
