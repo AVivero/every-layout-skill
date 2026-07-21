@@ -4,12 +4,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A [Claude skill](SKILL.md) that makes Claude fluent in [Every Layout](https://every-layout.dev)'s
-composable CSS layout primitives and axioms. Instead of reaching for one-off flexbox hacks
-and breakpoint soup, Claude picks from twelve well-defined primitives — Stack, Box, Center,
-Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, Icon — and emits **canonical,
-owned CSS**: plain classes and custom properties, copied straight into your project. There is
-no runtime, no build step, and nothing to `npm install`. You own every line of CSS this skill
-produces.
+composable CSS layout primitives and axioms. Instead of reaching for one-off flexbox hacks and
+breakpoint soup, Claude picks from twelve well-defined primitives — Stack, Box, Center, Cluster,
+Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, Icon — and writes them **in whatever
+styling approach your project already uses**: Tailwind, CSS-in-JS, or vanilla CSS. The value is
+the *reasoning* — which primitive, which axiom, which pitfall to avoid — not a new CSS system to
+adopt. On a greenfield project it falls back to the framework-free
+[`every-layout.css`](every-layout.css) bundled here, which you own outright.
 
 **[▶ See the primitives composed in live examples →](https://avivero.github.io/every-layout-skill/)** — holy-grail app shell, card with pinned footer, prose/measure, and a dashboard grid.
 
@@ -42,31 +43,33 @@ Claude Code discovers `SKILL.md` automatically and will reach for this skill whe
 it to build or adjust a CSS layout — sidebars, card grids, toolbars, centered content, media,
 sticky footers, overlays, and so on.
 
-## Use the CSS
+## Using it in your project
 
-You don't need the skill to use the stylesheet. Grab [`every-layout.css`](every-layout.css) —
-for example:
+With the skill installed, Claude detects how your project is styled and expresses each primitive
+in that idiom — Tailwind utility classes, a CSS-in-JS block, or plain CSS — translating from the
+primitive's canonical CSS. It won't drop a new stylesheet into a project that already has a
+styling system.
+
+On a greenfield project (or whenever you just want the framework-free version), it uses the
+bundled [`every-layout.css`](every-layout.css). Grab it:
 
 ```bash
 curl -O https://raw.githubusercontent.com/AVivero/every-layout-skill/main/every-layout.css
 ```
 
-Then reference it like any other stylesheet:
+Reference it like any other stylesheet, then apply the primitive classes and tune them with their
+custom properties:
 
 ```html
 <link rel="stylesheet" href="every-layout.css">
-```
 
-Then apply the primitive classes and tune each one with its custom properties, for example:
-
-```html
 <div class="stack" style="--space: var(--s2)">
   <h2>Heading</h2>
   <p>Paragraph.</p>
 </div>
 ```
 
-The CSS is yours once copied — there is no package to update and no dependency to track.
+The vanilla CSS is yours once copied — no package to update, no dependency to track.
 
 ## Browser support
 
