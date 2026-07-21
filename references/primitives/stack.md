@@ -37,9 +37,12 @@ it *between* children (`* + *`), so the first and last child never carry an unwa
   the `.stack` element itself (not on a distant ancestor) so it doesn't leak or get overridden
   by a nested Stack that expects its own default.
 - **Grouping to the edges:** because `.stack` is `display: flex; flex-direction: column`, you
-  can push a child (and everything after it) to the bottom by giving that child an `auto`
-  block-start margin, e.g. `.stack > :nth-child(2) { margin-block-start: auto }` — the same
-  trick as `margin-inline-start: auto` in a row layout, just rotated onto the block axis.
+  can push everything *after* a given child toward the bottom, while that child and everything
+  before it stay grouped at the top, by giving it an `auto` block-end margin, e.g.
+  `.stack > :nth-child(2) { margin-block-end: auto }` — the auto margin consumes the leftover
+  space immediately below the 2nd child, so children 1 and 2 hold together at the top and every
+  sibling from the 3rd onward is shoved down to the end of the flex container, the same trick as
+  `margin-inline-end: auto` in a row layout, just rotated onto the block axis.
 
 ## When to reach for it
 

@@ -27,7 +27,10 @@ negative-margin offsetting tricks to cancel the wrapped edge. The Cluster solves
 ## API
 
 - `--space` — the gap between items, applied evenly in both the row and column direction via
-  `gap`. Defaults to `1rem`.
+  `gap`. The `gap: var(--space, 1rem)` fallback of `1rem` only kicks in if no `--space` is in
+  scope at all; the shipped `:root` in `every-layout.css` sets `--space: var(--s1)` (`1.5rem`),
+  which inherits down to every `.cluster`, so the effective default gap is `1.5rem` unless you
+  set `--space` locally on the `.cluster` itself.
 - `justify-content` — tunes how items align along the main axis (e.g. switch to `center` or
   `space-between` for a differently distributed toolbar); override it per instance as needed.
 - `align-items` — tunes cross-axis alignment of items of differing heights; defaults to

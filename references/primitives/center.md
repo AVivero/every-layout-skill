@@ -45,14 +45,18 @@ on wide viewports.
 
 ## Pitfalls
 
-- Don't also constrain the Center's children with the global measure axiom — the global
-  `* { max-inline-size: var(--measure) }` rule already opts structural containers out
-  (`.center` included, alongside `.stack`, `.cluster`, etc. in `every-layout.css`), so nested
-  structural wrappers should keep that opt-out rather than accidentally re-capping themselves
-  inside an already-capped Center.
+- `.center` is deliberately *not* on the global measure opt-out list. The global
+  `* { max-inline-size: var(--measure) }` rule is opted out (`max-inline-size: none`) by
+  structural containers like `.stack`, `.cluster`, `.with-sidebar`, `.switcher`, `.cover`,
+  `.grid`, `.frame`, and `.reel` in `every-layout.css` — but `.center` re-declares
+  `max-inline-size: var(--measure)` on itself, because enforcing the measure cap *is* the
+  primitive's job. Don't nest a `.center` inside another `.center` (or otherwise) expecting it
+  to go full-width; if you need a width-spanning structure, wrap it in a container that's
+  actually on the opt-out list instead.
 - Centering the *box* is not the same as centering the *text* inside it — `.center` only
-  handles layout position via `margin-inline: auto`; if you also want centered text, that's a
-  separate, deliberate `text-align: center` decision, not something the primitive implies.
+  handles layout position via `margin-inline: auto`; it does not center inline text. If you
+  also want centered text, that's a separate, deliberate `text-align: center` decision, not
+  something the primitive implies.
 
 ## Example
 
