@@ -1,0 +1,233 @@
+/* =========================================================================
+   Every Layout — canonical, owned primitives.
+   Copy this file into your project. You own it; there is no dependency.
+   Uses logical properties + custom-property APIs (with fallbacks).
+   ========================================================================= */
+
+:root {
+  /* Modular scale — one ratio drives all spacing/sizing steps. */
+  --ratio: 1.5;
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
+
+  --measure: 60ch;      /* the measure axiom: line length ceiling */
+  --border-thin: 1px;
+  --space: var(--s1);   /* default gap for primitives that accept --space */
+}
+
+/* The measure axiom, seeded globally: nothing exceeds a comfortable line length,
+   but structural containers opt out so they can be full-width. */
+* {
+  max-inline-size: var(--measure);
+}
+html,
+body,
+div,
+header,
+nav,
+main,
+footer,
+section,
+article,
+form,
+fieldset,
+.stack,
+.cluster,
+.with-sidebar,
+.switcher,
+.cover,
+.grid,
+.frame,
+.reel {
+  max-inline-size: none;
+}
+
+/* ---- The Stack: injects margin between flow siblings via their parent ---- */
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.stack > * {
+  margin-block: 0;
+}
+.stack > * + * {
+  margin-block-start: var(--space, 1.5rem);
+}
+
+/* ---- The Box: padding + border that never collapses; safe inversion ---- */
+.box {
+  padding: var(--s1);
+  border: var(--border-thin) solid;
+  outline: var(--border-thin) solid transparent; /* visible in Windows High Contrast */
+  outline-offset: calc(var(--border-thin) * -1);
+  --color-light: #ffffff;
+  --color-dark: #000000;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+.box * {
+  color: inherit;
+}
+.box.invert {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+}
+
+/* ---- The Center: horizontally centered, measure-capped column ---- */
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--measure);
+  padding-inline: var(--s1);
+}
+
+/* ---- The Cluster: wrapping group with even gaps (toolbars, tags) ---- */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, 1rem);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ---- The Sidebar: intrinsic sidebar+content, no media queries ---- */
+.with-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, 1rem);
+}
+.with-sidebar > :first-child {
+  flex-basis: var(--sidebar-width, 20rem);
+  flex-grow: 1;
+}
+.with-sidebar > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--content-min, 50%);
+}
+
+/* ---- The Switcher: row-to-column flip at a content threshold ---- */
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, 1rem);
+}
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--threshold, 30rem) - 100%) * 999);
+}
+.switcher > :nth-last-child(n + 5),
+.switcher > :nth-last-child(n + 5) ~ * {
+  flex-basis: 100%; /* quantity threshold: stack when 5+ items */
+}
+
+/* ---- The Cover: min-height region with a vertically centered principal child ---- */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-block-size: var(--cover-min, 100vh);
+  padding: var(--space, 1rem);
+}
+.cover > * {
+  margin-block: var(--space, 1rem);
+}
+.cover > :first-child:not(.cover-centered) {
+  margin-block-start: 0;
+}
+.cover > :last-child:not(.cover-centered) {
+  margin-block-end: 0;
+}
+.cover > .cover-centered {
+  margin-block: auto;
+}
+
+/* ---- The Grid: auto-fitting equal columns, no breakpoints ---- */
+.grid {
+  display: grid;
+  gap: var(--space, 1rem);
+}
+@supports (width: min(250px, 100%)) {
+  .grid {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(var(--grid-min, 250px), 100%), 1fr)
+    );
+  }
+}
+
+/* ---- The Frame: fixed aspect ratio crop for media ---- */
+.frame {
+  aspect-ratio: var(--n, 16) / var(--d, 9);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.frame > img,
+.frame > video {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* ---- The Reel: horizontally scrolling track ---- */
+.reel {
+  display: flex;
+  block-size: var(--reel-height, auto);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: var(--reel-thumb, #000) var(--reel-track, #fff);
+}
+.reel > * {
+  flex: 0 0 var(--reel-item-width, 25%);
+}
+.reel > img {
+  block-size: 100%;
+  flex-basis: auto;
+  width: auto;
+}
+.reel > * + * {
+  margin-inline-start: var(--space, 1rem);
+}
+.reel.overflowing {
+  padding-block-end: var(--space, 1rem);
+}
+
+/* ---- The Imposter: element centered over a positioned ancestor ---- */
+.imposter {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+}
+.imposter.contain {
+  --imposter-margin: 0px;
+  overflow: auto;
+  max-inline-size: calc(100% - (var(--imposter-margin) * 2));
+  max-block-size: calc(100% - (var(--imposter-margin) * 2));
+}
+
+/* ---- The Icon: text-sized inline icon, baseline-aligned to adjacent text ---- */
+.icon {
+  block-size: 0.75em;
+  block-size: 1cap;
+  inline-size: 0.75em;
+  inline-size: 1cap;
+}
+.with-icon {
+  display: inline-flex;
+  align-items: baseline;
+}
+.with-icon .icon {
+  margin-inline-end: var(--space, 0.5rem);
+}
