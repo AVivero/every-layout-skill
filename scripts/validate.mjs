@@ -41,6 +41,11 @@ for (const p of PRIMITIVES) {
 }
 if (css && !css.includes('--measure')) fail('every-layout.css is missing the --measure token');
 if (css && !css.includes('--ratio')) fail('every-layout.css is missing the --ratio (modular scale) token');
+if (css) {
+  const open = (css.match(/{/g) || []).length;
+  const close = (css.match(/}/g) || []).length;
+  if (open !== close) fail(`every-layout.css has unbalanced braces (${open} '{' vs ${close} '}')`);
+}
 
 // --- SKILL.md ---
 const skill = read('SKILL.md');
@@ -64,6 +69,19 @@ for (const p of PRIMITIVES) {
     if (!doc.includes(section)) fail(`${path} is missing section "${section}"`);
   }
   if (!doc.includes(p.selector)) fail(`${path} does not reference its selector ${p.selector}`);
+
+  /* The doc's first ```css block is the primitive's Canonical CSS. It must appear
+     verbatim in every-layout.css — this is what catches doc/stylesheet drift. */
+  const block = doc.match(/```css\n([\s\S]*?)```/);
+  if (!block) {
+    fail(`${path} has no \`\`\`css Canonical CSS block`);
+  } else if (css) {
+    const cssNorm = css.replace(/\r/g, '');
+    const blockNorm = block[1].replace(/\r/g, '').trimEnd();
+    if (!cssNorm.includes(blockNorm)) {
+      fail(`${path} Canonical CSS block does not match every-layout.css (drift)`);
+    }
+  }
 }
 
 // --- Examples ---

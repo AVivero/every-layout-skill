@@ -1,5 +1,8 @@
 # Every Layout (Claude skill)
 
+[![validate](https://github.com/AVivero/every-layout-skill/actions/workflows/validate.yml/badge.svg)](https://github.com/AVivero/every-layout-skill/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A [Claude skill](SKILL.md) that makes Claude fluent in [Every Layout](https://every-layout.dev)'s
 composable CSS layout primitives and axioms. Instead of reaching for one-off flexbox hacks
 and breakpoint soup, Claude picks from twelve well-defined primitives — Stack, Box, Center,
@@ -7,6 +10,8 @@ Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, Icon — and emi
 owned CSS**: plain classes and custom properties, copied straight into your project. There is
 no runtime, no build step, and nothing to `npm install`. You own every line of CSS this skill
 produces.
+
+**[▶ See the primitives composed in live examples →](https://avivero.github.io/every-layout-skill/)** — holy-grail app shell, card with pinned footer, prose/measure, and a dashboard grid.
 
 ## Credit
 
@@ -39,8 +44,14 @@ sticky footers, overlays, and so on.
 
 ## Use the CSS
 
-You don't need the skill to use the stylesheet. Copy [`every-layout.css`](every-layout.css)
-into your own project and reference it like any other stylesheet:
+You don't need the skill to use the stylesheet. Grab [`every-layout.css`](every-layout.css) —
+for example:
+
+```bash
+curl -O https://raw.githubusercontent.com/AVivero/every-layout-skill/main/every-layout.css
+```
+
+Then reference it like any other stylesheet:
 
 ```html
 <link rel="stylesheet" href="every-layout.css">
@@ -56,6 +67,13 @@ Then apply the primitive classes and tune each one with its custom properties, f
 ```
 
 The CSS is yours once copied — there is no package to update and no dependency to track.
+
+## Browser support
+
+Targets evergreen browsers. Modern features degrade gracefully: Grid's `min()` track sizing is
+guarded by `@supports`; Icon's `1cap` falls back to `0.75em`; Frame uses `aspect-ratio`; and
+logical properties (`margin-block`, `inline-size`, `inset-*`) are used throughout. All are
+widely supported in current Chrome, Firefox, Safari, and Edge.
 
 ## The 12 primitives
 
@@ -86,6 +104,8 @@ The CSS is yours once copied — there is no package to update and no dependency
 - [`examples/`](examples/) — four runnable, zero-build HTML pages (`holy-grail`,
   `card-with-footer`, `prose-page`, `dashboard`) that link `every-layout.css` directly, so you
   can see every primitive composed in context.
+- [`llms.txt`](llms.txt) — a compact, tool-agnostic summary of the whole skill for any AI
+  assistant to ingest.
 
 ## Validating the repo
 
@@ -93,8 +113,10 @@ The CSS is yours once copied — there is no package to update and no dependency
 npm test
 ```
 
-This runs [`scripts/validate.mjs`](scripts/validate.mjs), a structural validator that checks
-the stylesheet, `SKILL.md`, every reference doc, and every example for internal consistency.
+This runs [`scripts/validate.mjs`](scripts/validate.mjs), a dependency-free structural validator
+that checks the stylesheet, `SKILL.md`, every reference doc, and every example for internal
+consistency — including that each primitive doc's Canonical CSS block still matches
+`every-layout.css` exactly, so docs can't silently drift from the stylesheet.
 
 ## License
 

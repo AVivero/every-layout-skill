@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Every Layout — skill &amp; primitives</title>
+    <link rel="stylesheet" href="every-layout.css" />
+  </head>
+  <body>
+    <!-- This landing page is itself built from the primitives (Center, Stack, Grid, Box). -->
+    <main class="center" style="--measure: 72ch;">
+      <div class="stack" style="--space: var(--s3);">
+        <div class="stack">
+          <h1>Every Layout</h1>
+          <p>Canonical, owned CSS layout primitives — packaged as a
+            <a href="https://github.com/AVivero/every-layout-skill">Claude skill</a>. An
+            independent reimplementation of the method by Heydon Pickering &amp; Andy Bell
+            (<a href="https://every-layout.dev">every-layout.dev</a> — buy the original; it's
+            excellent).</p>
+          <p><a href="https://github.com/AVivero/every-layout-skill">View the repository on GitHub →</a></p>
+        </div>
+
+        <div class="stack">
+          <h2>Live examples</h2>
+          <p>Each page composes the primitives and links the same <code>every-layout.css</code>.
+            This page is one too — it's a Center wrapping a Stack and a Grid of Boxes.</p>
+          <ul class="grid" role="list" style="--grid-min: 15rem; list-style: none; padding-inline-start: 0;">
+            <li class="box"><a href="examples/holy-grail/">Holy-grail app shell</a></li>
+            <li class="box"><a href="examples/card-with-footer/">Card with pinned footer</a></li>
+            <li class="box"><a href="examples/prose-page/">Prose page &amp; the measure</a></li>
+            <li class="box"><a href="examples/dashboard/">Dashboard grid</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
