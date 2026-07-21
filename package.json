@@ -1,7 +1,7 @@
 {
   "name": "every-layout-skill",
   "version": "0.1.0",
-  "description": "A Claude skill that makes AI fluent in Every Layout — canonical, owned CSS layout primitives.",
+  "description": "A Claude skill that makes AI fluent in Every Layout — the right layout primitive, written in your project's own stack (Tailwind, CSS-in-JS, or vanilla).",
   "type": "module",
   "private": true,
   "license": "MIT",

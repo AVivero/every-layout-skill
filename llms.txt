@@ -1,8 +1,11 @@
 # Every Layout (AI skill)
 
-> Composable CSS layout primitives + axioms. Emit canonical, owned CSS (classes + custom
-> properties) — never a dependency. Style the context, not the element; be the browser's
-> mentor, not its micro-manager.
+> Composable CSS layout primitives + axioms, as reasoning an AI applies in YOUR stack.
+> Detect the project's styling approach (Tailwind, CSS-in-JS, or vanilla) and express each
+> primitive in that idiom, translating from its canonical CSS; a greenfield project falls back
+> to the bundled every-layout.css. Never impose a stylesheet on a project that already has a
+> styling system. Style the context, not the element; be the browser's mentor, not its
+> micro-manager.
 
 ## Primitives
 - Stack — vertical rhythm between flow siblings: references/primitives/stack.md
@@ -22,5 +25,5 @@
 - Pick a primitive by intent: references/decision-tree.md
 - Axioms (measure, modular scale, units): references/rudiments.md
 - Nesting rules: references/composition.md
-- The owned stylesheet: every-layout.css
+- Vanilla reference + greenfield output (translate from this into the project's idiom): every-layout.css
 - Runnable layouts: examples/
