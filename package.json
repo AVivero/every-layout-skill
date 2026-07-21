@@ -1,0 +1,12 @@
+{
+  "name": "every-layout-skill",
+  "version": "0.1.0",
+  "description": "A Claude skill that makes AI fluent in Every Layout — canonical, owned CSS layout primitives.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node scripts/validate.mjs"
+  }
+}
