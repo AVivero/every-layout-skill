@@ -27,10 +27,10 @@ Copy this repository into a directory Claude Code loads skills from:
 
 ```bash
 # User-level (available in every project)
-git clone <this-repo-url> ~/.claude/skills/every-layout
+git clone https://github.com/AVivero/every-layout-skill.git ~/.claude/skills/every-layout
 
 # Or project-level (checked into a single repo)
-git clone <this-repo-url> .claude/skills/every-layout
+git clone https://github.com/AVivero/every-layout-skill.git .claude/skills/every-layout
 ```
 
 Claude Code discovers `SKILL.md` automatically and will reach for this skill whenever you ask
