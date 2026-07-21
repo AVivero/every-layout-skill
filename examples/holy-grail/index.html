@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Every Layout — Holy Grail</title>
+    <link rel="stylesheet" href="../../every-layout.css" />
+  </head>
+  <body>
+    <div class="cover" style="--cover-min: 100vh;">
+      <header class="box">Header — logo + nav</header>
+      <div class="with-sidebar cover-centered" style="--sidebar-width: 15rem;">
+        <nav class="box">Sidebar navigation</nav>
+        <main class="box">
+          <div class="stack">
+            <h1>Main content</h1>
+            <p>Resize the window: the sidebar collapses under it with no media query.</p>
+          </div>
+        </main>
+      </div>
+      <footer class="box">Footer</footer>
+    </div>
+  </body>
+</html>
