@@ -1,0 +1,26 @@
+# Every Layout (AI skill)
+
+> Composable CSS layout primitives + axioms. Emit canonical, owned CSS (classes + custom
+> properties) — never a dependency. Style the context, not the element; be the browser's
+> mentor, not its micro-manager.
+
+## Primitives
+- Stack — vertical rhythm between flow siblings: references/primitives/stack.md
+- Box — padded surface with safe inversion: references/primitives/box.md
+- Center — centered, measure-capped column: references/primitives/center.md
+- Cluster — wrapping group with even gaps: references/primitives/cluster.md
+- Sidebar (.with-sidebar) — collapsing sidebar+content: references/primitives/with-sidebar.md
+- Switcher — flip row↔column at a threshold: references/primitives/switcher.md
+- Cover — min-height region, centered child: references/primitives/cover.md
+- Grid — auto-fitting equal cells: references/primitives/grid.md
+- Frame — aspect-ratio media crop: references/primitives/frame.md
+- Reel — horizontal scroller: references/primitives/reel.md
+- Imposter — element centered over another: references/primitives/imposter.md
+- Icon — text-sized inline icon: references/primitives/icon.md
+
+## Start here
+- Pick a primitive by intent: references/decision-tree.md
+- Axioms (measure, modular scale, units): references/rudiments.md
+- Nesting rules: references/composition.md
+- The owned stylesheet: every-layout.css
+- Runnable layouts: examples/
