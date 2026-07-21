@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+
+# Local-only source material — the paid book; never publish
+every-layout.pdf
+
+# Local planning artifacts — never publish to GitHub
+docs/superpowers/
