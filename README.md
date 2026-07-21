@@ -49,7 +49,7 @@ into your own project and reference it like any other stylesheet:
 Then apply the primitive classes and tune each one with its custom properties, for example:
 
 ```html
-<div class="stack" style="--stack-space: var(--s1)">
+<div class="stack" style="--space: var(--s2)">
   <h2>Heading</h2>
   <p>Paragraph.</p>
 </div>

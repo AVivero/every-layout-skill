@@ -19,9 +19,11 @@ Fixed widths/heights are anathema to responsive design. Prefer:
 
 ## The modular scale
 
-One `--ratio` (default `1.5`, matching a `1.5` body `line-height`) generates every spacing
-and type step (`--s-5`..`--s5` in `every-layout.css`). Vertical rhythm derives from the body
-`line-height` because text dominates most pages.
+One `--ratio` (default `1.5`) generates every spacing and type step (`--s-5`..`--s5` in
+`every-layout.css`). `1.5` is chosen because it approximates a typical body `line-height`: one
+line of text is roughly `1rem × 1.5`, which is exactly `--s1`. Vertical rhythm derives from
+that relationship because text dominates most pages; `every-layout.css` does not itself set a
+`line-height` — pair the scale with whatever line-height your project declares.
 
 ## The measure axiom
 

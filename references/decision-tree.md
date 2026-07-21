@@ -29,7 +29,7 @@ primitive file(s) for CSS and pitfalls. Compose where two or more are listed.
 | Media object (avatar + text) | Sidebar (narrow `--sidebar-width`) or Cluster |
 | Prose article page | Center (measure) › Stack (rhythm) |
 | Dashboard of stat cards | Grid › Box (each card) › Stack (card internals) |
-| Settings page | Sidebar (nav) › Stack (form) with a Cover-pinned action bar |
+| Settings page | Sidebar (nav) › Stack (form) with an action bar pinned via `margin-block-start: auto` on the bar |
 | Image gallery that scrolls sideways | Reel › Frame (each item) |
 | Nav bar with logo + wrapping links | Cluster, or Sidebar if the logo is fixed-width |
 
