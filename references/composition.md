@@ -16,13 +16,14 @@ Layout containers carry `max-inline-size: none` (in `every-layout.css`); only te
 leaves inherit the global measure. Keep new structural wrappers out of the measure.
 
 Concretely, `every-layout.css`'s opt-out list is `.stack .cluster .with-sidebar .switcher
-.cover .grid .frame .reel` (plus the usual structural HTML elements) — every primitive
-except one. `.center` is deliberately left off that list: its whole job is to *enforce* the
-`--measure` cap on the column it wraps, so it keeps `max-inline-size: var(--measure)` on
-itself rather than opting out. Everything else that exists to arrange other elements —
-rhythm, grouping, placement — opts out so it can run full-width; the cap only bites again
-once you're down to a genuine text-bearing leaf (a paragraph, a heading) that isn't itself
-wrapped in another opted-out primitive.
+.cover .grid .frame .reel` (plus the usual structural HTML elements) — the primitives whose
+job is to arrange other elements (rhythm, grouping, media framing). `.center`, `.box`,
+`.icon`, and `.imposter` are deliberately left off that list: they're text-bearing or
+leaf-ish primitives, so they keep the global `max-inline-size: var(--measure)` (`.center`
+additionally re-declares it explicitly, since enforcing that cap on the column it wraps is
+its whole job). The cap only bites once you're down to a genuine text-bearing leaf (a
+paragraph, a heading, or one of these primitives) that isn't itself wrapped in another
+opted-out primitive.
 
 ## Worked example: presentation editor
 `Sidebar` (thumbnail list + slide) › the slide is a `Cover` with `--cover-min: 66.666vh`,
@@ -46,10 +47,13 @@ via a Stack `auto` margin. This is the book's canonical composition demo.
 ```
 
 The `.with-sidebar` is the outer grouping primitive: the thumbnail list (first child) is the
-sidebar, the `.cover` (last child) is the main content. Because `.with-sidebar`'s last child
-grows aggressively (`flex-grow: 999`), the row's height is dictated by whichever child is
-tallest — here, the `.cover`'s `min-block-size: 66.666vh` — so the sidebar column stretches
-to match it even though its own thumbnails don't need that much space. The thumbnail list
+sidebar, the `.cover` (last child) is the main content. `.with-sidebar` is a flex row and
+doesn't override `align-items`, so the default `stretch` applies: both columns stretch to
+the height of the tallest one. Here that's the `.cover`, whose `min-block-size: 66.666vh`
+sets the row's height — so the sidebar column stretches to match it even though its own
+thumbnails don't need that much space. (`flex-grow: 999` on the `.cover` only governs how
+the *inline*-axis width is distributed between the two columns; it plays no part in the
+height match.) The thumbnail list
 lives in its own inner Stack (rhythm between thumbnails); the outer Stack wrapping that list
 and the "Add slide" button uses `margin-block-start: auto` on the button to push it to the
 bottom of the now-taller sidebar column, per the Stack's edge-grouping trick. The slide
