@@ -33,8 +33,11 @@ that relationship because text dominates most pages; `every-layout.css` does not
 `blockquote`, `figcaption` — because `max-inline-size` doesn't inherit, so the cap must sit on
 the text, not an ancestor. Images, media, tables, form controls, and layout containers are
 deliberately left uncapped. The Center primitive re-declares the cap on its own box to hold
-arbitrary content (not just text) to the measure. Because `ch` tracks `font-size`, the measure
-stays correct without a hardcoded pixel width.
+arbitrary content (not just text) to the measure. List items (`li`, `dd`) are intentionally left
+uncapped too, so a `<ul>`/`<ol>` can double as a layout row or card list; for a uniform measure
+across mixed prose — paragraphs and lists together — wrap the block in a `.center` rather than
+relying on the per-element cap. Because `ch` tracks `font-size`, the measure stays correct without
+a hardcoded pixel width.
 
 ## Global-and-local styling — three tiers
 

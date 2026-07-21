@@ -16,7 +16,7 @@ user owns** — never a dependency, never bespoke breakpoint soup.
    `margin-bottom` onto elements.
 2. **Be the browser's mentor, not its micro-manager.** Set axioms (a measure ceiling in
    `ch`, modular-scale spacing, logical properties) and let the browser's algorithms —
-   flex wrapping, `min()`/`clamp()`, `auto-fill` — produce the pixels. Avoid fixed widths
+   flex wrapping, `min()`/`clamp()`, `auto-fit` — produce the pixels. Avoid fixed widths
    and device-width media queries.
 3. **The user owns the CSS.** Emit classes + custom properties from `every-layout.css`.
    Do not tell the user to install anything.

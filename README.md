@@ -81,7 +81,8 @@ The CSS is yours once copied — there is no package to update and no dependency
 - [`references/rudiments.md`](references/rudiments.md) — the underlying axioms: measure,
   modular scale, logical units.
 - [`references/composition.md`](references/composition.md) — rules for nesting primitives
-  together (e.g. Cover › Sidebar › Stack for a "holy grail" layout).
+  together (e.g. a full-height flex column wrapping a Sidebar, with Stack for content, for a
+  "holy grail" app shell).
 - [`examples/`](examples/) — four runnable, zero-build HTML pages (`holy-grail`,
   `card-with-footer`, `prose-page`, `dashboard`) that link `every-layout.css` directly, so you
   can see every primitive composed in context.

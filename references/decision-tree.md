@@ -24,7 +24,7 @@ primitive file(s) for CSS and pitfalls. Compose where two or more are listed.
 
 | The need | Compose |
 | --- | --- |
-| "Holy grail" app layout | Cover (page) › Sidebar (nav + main) › Stack (main content) |
+| "Holy grail" app layout | Full-height flex column (fills 100vh) › Sidebar (nav + main) › Stack (content). Use Cover only if the middle should *center* a focal element, not fill. |
 | Card with a pinned footer | Cover with `--cover-min` + a `.cover-centered` body, or a flex Stack with an `auto` margin |
 | Media object (avatar + text) | Sidebar (narrow `--sidebar-width`) or Cluster |
 | Prose article page | Center (measure) › Stack (rhythm) |
