@@ -38,20 +38,26 @@ content onto its own row — a wrap driven by available space, not a hardcoded v
 
 ## API
 
-- `--sidebar-width` — the sidebar's ideal `flex-basis`. The CSS fallback is `20rem`, used only if
-  no `--sidebar-width` is in scope; there's no `:root` value for it in `every-layout.css`, so
-  `20rem` is also the effective default unless you set it.
-- `--content-min` — the percentage of the flex container's width below which the content column
-  refuses to shrink further and is forced onto its own row instead. This percentage, not a
-  viewport breakpoint, is what drives the wrap. The CSS fallback and effective default are both
-  `50%` (no `:root` override ships for it either).
+- Order is fixed, not a naming convention: the rule targets `:first-child` and `:last-child`
+  specifically, and the two are not interchangeable. The **first child is the sidebar** — set
+  `--sidebar-width` on the `.with-sidebar` element to tune its ideal `flex-basis`. The **last
+  child is the main content** — it ignores `--sidebar-width` entirely and instead grows
+  aggressively (`flex-grow: 999`) to claim whatever room is left.
+- `--sidebar-width` — read only by the first child; it has no effect on the last child. The CSS
+  fallback is `20rem`, used only if no `--sidebar-width` is in scope; there's no `:root` value for
+  it in `every-layout.css`, so `20rem` is also the effective default unless you set it.
+- `--content-min` — read only by the last child. It's the percentage of the flex container's width
+  below which the content column refuses to shrink further and is forced onto its own row instead
+  (this is what drives the no-media-query collapse). The CSS fallback and effective default are
+  both `50%` (no `:root` override ships for it either).
 - `--space` — the `gap` between the two children, in both axes once wrapped. The `gap: var(--space,
   1rem)` fallback of `1rem` only applies if `--space` is out of scope entirely; `every-layout.css`'s
   `:root` sets `--space: var(--s1)` (`1.5rem`), which inherits down to every `.with-sidebar`, so the
   effective default gap is `1.5rem`.
-- Order matters, not naming: the rule targets `:first-child` and `:last-child`, not a "sidebar"
-  class. Put the sidebar first or last in markup and give it `--sidebar-width`; whichever position
-  you leave for the "main" role is the one that grows (`flex-grow: 999`) to consume the rest.
+- To put the sidebar on the visual right while keeping it the DOM-first child (so it still reads
+  `--sidebar-width`), reach for CSS `order` or `flex-direction: row-reverse` on `.with-sidebar`.
+  Moving the sidebar to be the *last* child instead does not achieve this — that position runs the
+  growing "content" role (`flex-grow: 999`, `--content-min`), not the sidebar role.
 
 ## When to reach for it
 
