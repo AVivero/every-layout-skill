@@ -30,7 +30,7 @@ children, and a small set of custom properties to tune sizing and appearance.
 .reel > img {
   block-size: 100%;
   flex-basis: auto;
-  width: auto;
+  inline-size: auto;
 }
 .reel > * + * {
   margin-inline-start: var(--space, 1rem);
@@ -59,7 +59,7 @@ children, and a small set of custom properties to tune sizing and appearance.
   Pitfalls). While present, it adds `padding-block-end: var(--space, 1rem)` to reserve room for the
   scrollbar so it doesn't overlap the last row of content.
 - An `img` that is a direct child of `.reel` (not wrapped) is instead sized by `block-size: 100%;
-  flex-basis: auto; width: auto`, i.e. it fills the Reel's height and takes its own natural aspect
+  flex-basis: auto; inline-size: auto`, i.e. it fills the Reel's height and takes its own natural aspect
   ratio's width, ignoring `--reel-item-width`.
 
 ## When to reach for it

@@ -29,8 +29,9 @@ the actual centering.
 
 ## API
 
-- `--measure` — the maximum inline size of the column, inherited from the global measure axiom
-  (default `60ch`) unless overridden locally.
+- `--measure` — the maximum inline size of the column (default `60ch`). It's the same `--measure`
+  custom property the measure axiom uses; `.center` re-declares the cap on its own box (the axiom
+  itself only caps text elements). Override `--measure` locally to widen or narrow this column.
 - `box-sizing: content-box` — deliberately opts out of the project-wide `border-box` default so
   that `padding-inline` is additive to `--measure` rather than subtracted from it; the gutters
   sit outside the capped content width.
@@ -45,14 +46,12 @@ on wide viewports.
 
 ## Pitfalls
 
-- `.center` is deliberately *not* on the global measure opt-out list. The global
-  `* { max-inline-size: var(--measure) }` rule is opted out (`max-inline-size: none`) by
-  structural containers like `.stack`, `.cluster`, `.with-sidebar`, `.switcher`, `.cover`,
-  `.grid`, `.frame`, and `.reel` in `every-layout.css` — but `.center` re-declares
-  `max-inline-size: var(--measure)` on itself, because enforcing the measure cap *is* the
-  primitive's job. Don't nest a `.center` inside another `.center` (or otherwise) expecting it
-  to go full-width; if you need a width-spanning structure, wrap it in a container that's
-  actually on the opt-out list instead.
+- `.center` is the one primitive that re-applies the measure cap on its own box
+  (`max-inline-size: var(--measure)`). The measure axiom in `every-layout.css` caps only text
+  elements (`p`, headings, `blockquote`, `figcaption`), not containers — so `.center` opts *in* to
+  the cap deliberately, because holding its column to the measure is its whole job. Don't nest a
+  `.center` inside another expecting the inner one to go full-width; if you need width-spanning
+  structure, use a plain container or a layout primitive, not `.center`.
 - Centering the *box* is not the same as centering the *text* inside it — `.center` only
   handles layout position via `margin-inline: auto`; it does not center inline text. If you
   also want centered text, that's a separate, deliberate `text-align: center` decision, not

@@ -76,9 +76,9 @@ genuinely isn't enough of it.
   children. A third direct child gets no sizing rules of its own and will not participate in the
   sidebar/content split as intended — wrap extra content inside one of the two children instead of
   adding a third sibling.
-- `.with-sidebar` is on the global measure opt-out list in `every-layout.css` (`max-inline-size:
-  none`), so it isn't clipped to the `60ch` measure the way ordinary elements are; the measure cap
-  still applies inside its children unless they too opt out.
+- `.with-sidebar` is a layout container, so the measure axiom (which caps only text elements — `p`,
+  headings, `blockquote`, `figcaption`) never clips it; text *inside* either column still caps at
+  the measure via those text elements or a wrapping `.center`.
 
 ## Example
 

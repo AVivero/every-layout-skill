@@ -24,31 +24,29 @@
   --space: var(--s1);   /* default gap for primitives that accept --space */
 }
 
-/* The measure axiom, seeded globally: nothing exceeds a comfortable line length,
-   but structural containers opt out so they can be full-width. */
-* {
-  max-inline-size: var(--measure);
+/* Sensible box model: padding and border count toward an element's size.
+   Every Layout assumes this, and it keeps the Box/Center padding math honest. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-html,
-body,
-div,
-header,
-nav,
-main,
-footer,
-section,
-article,
-form,
-fieldset,
-.stack,
-.cluster,
-.with-sidebar,
-.switcher,
-.cover,
-.grid,
-.frame,
-.reel {
-  max-inline-size: none;
+
+/* The measure axiom: cap line length on text-bearing elements so prose stays
+   readable — WITHOUT constraining images, media, tables, form controls, or
+   layout containers. `max-inline-size` does not inherit, so the cap must sit on
+   the text elements themselves, not on an ancestor. (The Center primitive
+   re-declares the cap on its own box, to wrap arbitrary content to the measure.) */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+figcaption {
+  max-inline-size: var(--measure);
 }
 
 /* ---- The Stack: injects margin between flow siblings via their parent ---- */
@@ -159,7 +157,7 @@ fieldset,
 @supports (width: min(250px, 100%)) {
   .grid {
     grid-template-columns: repeat(
-      auto-fill,
+      auto-fit,
       minmax(min(var(--grid-min, 250px), 100%), 1fr)
     );
   }
@@ -194,7 +192,7 @@ fieldset,
 .reel > img {
   block-size: 100%;
   flex-basis: auto;
-  width: auto;
+  inline-size: auto;
 }
 .reel > * + * {
   margin-inline-start: var(--space, 1rem);

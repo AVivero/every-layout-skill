@@ -11,19 +11,14 @@ Set `--space` on the specific Stack/Cluster that needs it. Do **not** move a chi
 `--space` up to a parent that might itself become a nested child — it would be overridden
 when nested (see rudiments, custom-property API).
 
-## Measure opts out for structural wrappers
-Layout containers carry `max-inline-size: none` (in `every-layout.css`); only text-bearing
-leaves inherit the global measure. Keep new structural wrappers out of the measure.
-
-Concretely, `every-layout.css`'s opt-out list is `.stack .cluster .with-sidebar .switcher
-.cover .grid .frame .reel` (plus the usual structural HTML elements) — the primitives whose
-job is to arrange other elements (rhythm, grouping, media framing). `.center`, `.box`,
-`.icon`, and `.imposter` are deliberately left off that list: they're text-bearing or
-leaf-ish primitives, so they keep the global `max-inline-size: var(--measure)` (`.center`
-additionally re-declares it explicitly, since enforcing that cap on the column it wraps is
-its whole job). The cap only bites once you're down to a genuine text-bearing leaf (a
-paragraph, a heading, or one of these primitives) that isn't itself wrapped in another
-opted-out primitive.
+## The measure caps text, not containers
+`every-layout.css` applies the measure (`max-inline-size: var(--measure)`) only to
+text-bearing elements — `p`, `h1`–`h6`, `blockquote`, `figcaption`. Layout containers,
+images, media, tables, and form controls are never capped, so nesting primitives never fight
+the measure and no opt-out list is needed. The one primitive that re-applies the cap is
+`.center`, which re-declares it on its own box precisely so it can hold arbitrary content (not
+just text elements) to a comfortable column width. So: reach for `.center` when you want a
+container held to the measure; everything else is unconstrained by default.
 
 ## Worked example: presentation editor
 `Sidebar` (thumbnail list + slide) › the slide is a `Cover` with `--cover-min: 66.666vh`,

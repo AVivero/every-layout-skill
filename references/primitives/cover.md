@@ -70,9 +70,9 @@ fill the viewport with one focal element regardless of how much surrounding cont
   Cover's own `padding` is the only space at the very top and bottom, not padding plus a doubled-up
   child margin. If the first or last child *is* `.cover-centered`, that `:not()` guard doesn't
   apply and its `margin-block: auto` centering takes over instead.
-- `.cover` is on the global measure opt-out list in `every-layout.css` (`max-inline-size: none`),
-  so the region itself isn't clipped to the `60ch` measure; its children are still capped unless
-  they also opt out.
+- `.cover` is a layout container, so the measure axiom (which caps only text elements — `p`,
+  headings, `blockquote`, `figcaption`) never clips the region; text *inside* it still caps at the
+  measure via those text elements or a wrapping `.center`.
 
 ## Example
 

@@ -7,13 +7,41 @@
     <link rel="stylesheet" href="../../every-layout.css" />
   </head>
   <body>
-    <main class="center">
-      <article class="stack">
-        <h1>A comfortable measure</h1>
-        <p>This column is capped by <code>--measure</code> (60ch) and centered. Lines never
-          exceed a comfortable reading length regardless of viewport width.</p>
-        <p>Vertical rhythm comes from the Stack, driven by the modular scale.</p>
-      </article>
+    <main class="stack" style="--space: var(--s2);">
+      <div class="center">
+        <article class="stack">
+          <h1>A comfortable measure</h1>
+          <p>Paragraphs, headings, blockquotes, and figure captions are capped to
+            <code>--measure</code> (~60ch), so lines never exceed a comfortable reading length no
+            matter how wide the viewport.</p>
+          <p>Vertical rhythm comes from the Stack, driven by the modular scale.</p>
+        </article>
+      </div>
+
+      <!--
+        Everything below sits OUTSIDE .center and spans the full page width. The measure axiom
+        caps only text elements (p, h1–h6, blockquote, figcaption) — never images, tables, or
+        form controls — so these are free to be as wide as their container. (Under the old
+        global `* { max-inline-size }` reset they would have been clipped to ~60ch.)
+      -->
+      <img
+        alt="A full-width banner image, uncapped by the measure"
+        style="inline-size: 100%; block-size: 6rem; object-fit: cover;"
+        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1600'%20height='300'%3E%3Crect%20width='1600'%20height='300'%20fill='%23cccccc'/%3E%3C/svg%3E"
+      />
+
+      <table style="inline-size: 100%; border-collapse: collapse;">
+        <thead>
+          <tr><th>Column A</th><th>Column B</th><th>Column C</th><th>Column D</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Row 1</td><td>data</td><td>data</td><td>data</td></tr>
+          <tr><td>Row 2</td><td>data</td><td>data</td><td>data</td></tr>
+        </tbody>
+      </table>
+
+      <input type="search" placeholder="A full-width search field, uncapped by the measure"
+        style="inline-size: 100%;" />
     </main>
   </body>
 </html>

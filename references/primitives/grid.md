@@ -8,7 +8,7 @@ narrow screens.
 
 A responsive card grid is traditionally built as a series of breakpoints — two columns here, three
 there, four beyond that — each one a guess about which viewport widths deserve which column count.
-CSS Grid's own `auto-fill`/`minmax()` combination already solves the "as many columns as fit"
+CSS Grid's own `auto-fit`/`minmax()` combination already solves the "as many columns as fit"
 problem without media queries, but a plain `minmax(250px, 1fr)` has a gap: if the viewport (or
 container) is ever narrower than that minimum, the track can't shrink below it and the grid
 overflows its parent. The Grid closes that gap by wrapping the minimum in `min(var(--grid-min,
@@ -27,7 +27,7 @@ narrow phone screen instead of forcing horizontal overflow.
 @supports (width: min(250px, 100%)) {
   .grid {
     grid-template-columns: repeat(
-      auto-fill,
+      auto-fit,
       minmax(min(var(--grid-min, 250px), 100%), 1fr)
     );
   }
@@ -58,16 +58,20 @@ column counts at a handful of breakpoints.
 
 - The column-generating rule is wrapped in `@supports (width: min(250px, 100%))` because it
   depends on `min()` support; browsers without it still get `display: grid` and the `gap`, but fall
-  back to the browser's default single implicit column rather than the auto-fill track sizing.
+  back to the browser's default single implicit column rather than the auto-fit track sizing.
   That's a deliberate progressive-enhancement fallback, not a bug to "fix" by removing the
   `@supports` guard.
+- `.grid` uses `auto-fit`, not `auto-fill`: empty tracks collapse, so when the items don't fill
+  every possible column the ones present stretch to fill the row instead of leaving a trailing gap
+  of empty tracks. If you'd rather each cell keep a fixed maximum width and leave that trailing
+  space, swap `auto-fit` for `auto-fill` and give the cells a `max-inline-size`.
 - The Grid is for an open-ended or larger number of equal cells. For a small, fixed number of
   items (roughly two to four) that should flip between a row and a stack as a single unit rather
-  than reflow independently, use Switcher instead — Grid's per-cell `auto-fill` behavior isn't
-  built for that binary flip.
-- `.grid` is on the global measure opt-out list in `every-layout.css` (`max-inline-size: none`), so
-  the grid container itself isn't clipped to the `60ch` measure; its cell contents are still capped
-  unless they also opt out.
+  than reflow independently, use Switcher instead — Grid's per-cell auto-fitting isn't built for
+  that binary flip.
+- `.grid` is a layout container, so the measure axiom (which caps only text elements — `p`,
+  headings, `blockquote`, `figcaption`) never clips the grid or its cells; text *inside* a cell
+  still caps at the measure via those text elements or a wrapping `.center`.
 
 ## Example
 

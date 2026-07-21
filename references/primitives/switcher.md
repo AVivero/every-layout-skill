@@ -65,9 +65,9 @@ squeezed into an awkwardly narrow column when there isn't.
   `:nth-last-child(n + 5)` rule exists precisely to force-stack once you exceed that count, since a
   wide row of many equal-width flex items isn't the Switcher's job. For galleries, card decks, or
   any open-ended list, use Grid instead.
-- `.switcher` is on the global measure opt-out list in `every-layout.css` (`max-inline-size:
-  none`), so the Switcher itself isn't clipped to the `60ch` measure; its children still are unless
-  they also opt out.
+- `.switcher` is a layout container, so the measure axiom (which caps only text elements — `p`,
+  headings, `blockquote`, `figcaption`) never clips it; text *inside* a panel still caps at the
+  measure via those text elements or a wrapping `.center`.
 
 ## Example
 

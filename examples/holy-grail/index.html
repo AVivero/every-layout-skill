@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="../../every-layout.css" />
   </head>
   <body>
-    <div class="cover" style="--cover-min: 100vh;">
+    <!--
+      App shell: a flex column that fills the viewport height. The middle region
+      GROWS to fill the space between header and footer. (Cover centers a single
+      focal child; an app shell instead needs the middle to fill — so the outer
+      wrapper is a plain flex column, and the Sidebar row gets flex-grow: 1.)
+    -->
+    <div style="display: flex; flex-direction: column; min-block-size: 100vh;">
       <header class="box">Header — logo + nav</header>
-      <div class="with-sidebar cover-centered" style="--sidebar-width: 15rem;">
+      <div class="with-sidebar" style="--sidebar-width: 15rem; flex-grow: 1;">
         <nav class="box">Sidebar navigation</nav>
         <main class="box">
           <div class="stack">
             <h1>Main content</h1>
-            <p>Resize the window: the sidebar collapses under it with no media query.</p>
+            <p>Resize the window: the sidebar collapses under the main column with no media query.
+              Both columns stretch to fill the middle region's height.</p>
           </div>
         </main>
       </div>
